@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Bellshops - Accueil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f6f6f6;
+    }
+    header {
+      background: #000;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 10px;
+      color: #fff;
+      text-decoration: none;
+    }
+    .slogan {
+      text-align: center;
+      margin: 30px 0;
+      font-size: 24px;
+    }
+    .produits {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .produit {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      width: 200px;
+      text-align: center;
+    }
+    .produit button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: #000;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .panier {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 8px;
+      width: 200px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .panier h3 {
+      margin-top: 0;
+    }
+    @media (max-width: 600px) {
+      .produits {
+        flex-direction: column;
+        align-items: center;
+      }
+      .panier {
+        width: 90%;
+        right: 5%;
+        bottom: 20px;
+        top: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Bellshops</h1>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="a-propos.html">À propos</a>
+    </nav>
+  </header>
+  <div class="slogan">Tout pour vous faire plaisir</div>
+  <section class="produits">
+    <div class="produit">
+      <h3>Sac à main chic</h3>
+      <p>29,99 €</p>
+      <button onclick="ajouterAuPanier('Sac à main chic', 29.99)">Ajouter au panier</button>
+    </div>
+    <div class="produit">
+      <h3>Montre élégante</h3>
+      <p>49,99 €</p>
+      <button onclick="ajouterAuPanier('Montre élégante', 49.99)">Ajouter au panier</button>
+    </div>
+    <div class="produit">
+      <h3>Chaussures tendance</h3>
+      <p>39,99 €</p>
+      <button onclick="ajouterAuPanier('Chaussures tendance', 39.99)">Ajouter au panier</button>
+    </div>
+  </section>
+  <div class="panier" id="panier">
+    <h3>Mon panier</h3>
+    <ul id="liste-panier"></ul>
+    <strong>Total : <span id="total">0.00</span> €</strong>
+  </div>
+  <script>
+    let panier = [];
+    function ajouterAuPanier(nom, prix) {
+      panier.push({ nom, prix });
+      mettreAJourPanier();
+    }
+    function mettreAJourPanier() {
+      const liste = document.getElementById('liste-panier');
+      const totalEl = document.getElementById('total');
+      liste.innerHTML = '';
+      let total = 0;
+      panier.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.nom} - ${item.prix.toFixed(2)} €`;
+        liste.appendChild(li);
+        total += item.prix;
+      });
+      totalEl.textContent = total.toFixed(2);
+    }
+  </script>
+</body>
+</html>
